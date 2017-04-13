@@ -1,6 +1,7 @@
 package com.cn.hnust.controller; 
 
 import java.io.File;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 @Controller  
 @RequestMapping(value="/upload")  
 public class UploadController {
+    Logger logger=Logger.getLogger("UploadController");
 	private final String JSON_JSP = "/jsondata";
 	private String responseJson;
 	public String getResponseJson() {
@@ -27,10 +29,11 @@ public class UploadController {
 	}
 	 @RequestMapping(value="/uploadImg" ,method = RequestMethod.POST)  
 	    public String upload(@RequestParam(value = "mainimgFile", required = false) MultipartFile file,@RequestParam(value = "img1File", required = false) MultipartFile file1,@RequestParam(value = "img2File", required = false) MultipartFile file2,@RequestParam(value = "readFree", required = false) MultipartFile file3, HttpServletRequest request, ModelMap model) {  
-		System.out.println("&&&&&&&&&&&&&&&&&&&&�ϴ�&&&&&&&&&&&&&&&&&&&&&&&&7");
+		System.out.println("上传图片开始");
 		 JSONObject jsonResult = new JSONObject(); 
-		 String path = request.getSession().getServletContext().getRealPath("/upload/img");  
-		 String fileName="";
+		 String path = request.getSession().getServletContext().getRealPath("/upload/img");
+		 logger.info("【path】="+path);
+		  String fileName="";
 		 MultipartFile fileXX=null;
 		 if(file!= null&&StringUtils.hasText(file.getOriginalFilename())){
 			  fileName = file.getOriginalFilename(); 
@@ -71,7 +74,7 @@ public class UploadController {
 	 
 	 @RequestMapping(value="/uploadMovie" ,method = RequestMethod.POST)  
 	    public String uploadMovie(@RequestParam(value = "moviesrcFile", required = false) MultipartFile file, HttpServletRequest request, ModelMap model) {  
-		System.out.println("&&&&&&&&&&&&&&&&&&&&�ϴ�&&&&&&&&&&&&&&&&&&&&&&&&");
+		System.out.println("上传电影开始");
 		 JSONObject jsonResult = new JSONObject(); 
 		 String path = request.getSession().getServletContext().getRealPath("/upload/movie");  
 		 String fileName="";
